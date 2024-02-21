@@ -18,8 +18,7 @@ public class ClientUdp {
             byte[] receivedData = new byte[1024];
             while (true) {
                 DatagramPacket receivedPacket = new DatagramPacket(receivedData, receivedData.length);
-                clientSocket.receive(receivedPacket); // Receive data from server
-
+                clientSocket.receive(receivedPacket);
                 String receivedMessage = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
                 System.out.println("Received: " + receivedMessage);
 

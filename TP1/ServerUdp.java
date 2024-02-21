@@ -1,11 +1,8 @@
 package TP1;
 
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.net.Socket;
-import java.util.ArrayList;
+
 
 public class ServerUdp {
     static int maxSize = 3;
@@ -21,21 +18,19 @@ public class ServerUdp {
             while (true) {
                 byte[] receivedData = new byte[1024];
                 DatagramPacket receivePacket = new DatagramPacket(receivedData, receivedData.length);
-                System.out.println("Waiting for client message...");
 
-                serverSocket.receive(receivePacket); // Receive data from client
+                serverSocket.receive(receivePacket); 
 
                 String receivedMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Received from client: " + receivedMessage);
                 if (clientsNB < maxSize) {
                     for (DatagramPacket client : clients) {
                         if (client != null) {
-                            String message = "Hello from Client" + clientsNB + 1;
+                            String message = "Hello from Client" + (clientsNB + 1);
                             serverSocket.send(new DatagramPacket(message.getBytes(), message.getBytes().length,
                                     client.getAddress(), client.getPort()));
                         }
                     }
-                    serverSocket.receive(receivePacket);
 
                     clients[clientsNB] = receivePacket;
                     clientsNB++;

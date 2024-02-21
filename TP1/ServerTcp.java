@@ -9,17 +9,18 @@ import java.util.ArrayList;
 
 public class ServerTcp {
     static int maxSize = 3;
-
-    static ArrayList<Socket> clients = new ArrayList(maxSize);
+    static int clientsNB = 0 ;
+    static Socket[] clients = new Socket[maxSize];
      public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(8080);
             System.out.println("Server TCP is listening on localhost:8080");
             while (true) {
                 Socket connectionSocket = serverSocket.accept();
-                if(clients.size() < maxSize)
+                if(clientsNB< maxSize)
                 {
-                    clients.add(connectionSocket);
+                    clients[clientsNB] =(connectionSocket);
+                    clientsNB++;
                 }
                 else{
                     for (Socket client : clients){
@@ -37,7 +38,7 @@ public class ServerTcp {
                 System.out.println(clientSentence);
                 for (Socket client : clients){
                   PrintWriter outToClient = new PrintWriter(client.getOutputStream(), true);
-                  outToClient.println("Hello from Client"+clients.size());
+                  outToClient.println("Hello from Client"+(clientsNB+1));
 
                 }
             }

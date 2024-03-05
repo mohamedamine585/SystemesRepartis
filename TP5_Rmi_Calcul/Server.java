@@ -8,9 +8,10 @@ public class Server {
     public static void main(String[] args)  {
         try {
 
+            Registry registry = LocateRegistry.createRegistry(1099);
+            
             // Bind a calculImpl to "calcul"
             OpStringImpl opstring = new OpStringImpl();
-            Registry registry = LocateRegistry.createRegistry(1099);
             registry.bind("OpString", opstring);
 
              // create tcp server
